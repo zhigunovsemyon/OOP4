@@ -8,10 +8,13 @@
  Структура данных: односвязный список, элемент списка хранит непосредственно
  объект.
  */
-#include <print>
+#include "list.h"
+#include <iostream>
 
 int main()
 {
-	std::println("Hello World!");
+	int nums[] {1,4,8,8};
+	List l{4, nums};
+	std::cout << ("Hello World!\n");
 	return 0;
 }
