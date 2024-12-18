@@ -20,7 +20,8 @@ int main()
 			l.push(nums[i - 1]);
 		}
 		while (l.size()) {
-			std::cout << l.pop() << ' ';
+			std::cout << l.last() << ' ';
+			l.pop();
 		}
 	} catch (ListErrors le) {
 		switch (le) {
