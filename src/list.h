@@ -66,7 +66,7 @@ T List<T>::shift()
 	if (head_ == nullptr)
 		throw LISTERR_EMPTY_EXTRACTION;
 
-	Element * oldEl = head_; /*!ПОТЕНЦИАЛЬНОЕ РАЗИМЕНОВАНИЕ NULL!*/
+	Element * oldEl = head_; /*head_ не равен nullptr здесь*/
 	/*Копирование данных из элемента списка на стек функции*/
 	T ret = oldEl->data;
 	head_ = oldEl->next;
