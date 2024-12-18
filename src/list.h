@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <istream>
 #include <ostream>
 
@@ -12,7 +11,12 @@ public:
 
 	~List(); // Деструктор
 
-	std::size_t size() { return count_; }
+	/*Ненужные методы*/
+	List(List & src) = delete;
+	void operator=(List & src) = delete;
+
+	/*Число элементов в списке*/
+	std::size_t size() const { return count_; }
 
 	List & unshift(T const & el)
 	{
