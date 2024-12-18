@@ -33,7 +33,8 @@ public:
 		return *this;
 	}
 
-	T & operator[](int const num);
+	/*Получение num элемента списка. Поддерживается индексация с конца*/
+	T & operator[](int num);
 
 	/*Извлечение начального элемента*/
 	T shift();
@@ -55,7 +56,7 @@ private:
 		/*Возвращаемый указатель. Изначально указывает на голову */
 		auto ret{head_};
 
-		for (int i{0}; i < n; ++i){
+		for (int i{0}; i < n; ++i) {
 			if (ret == nullptr)
 				return nullptr;
 			ret = ret->next;
@@ -84,7 +85,7 @@ List<T>::List(int num, T * const ptr) : count_{0}, head_{nullptr}
 {
 	if (ptr == nullptr)
 		throw LISTERR_NULLPTR_INSERTION;
-	
+
 	for (auto i{num - 1}; i >= 0; --i)
 		unshift(ptr[i]);
 }
@@ -95,13 +96,17 @@ List<T>::~List()
 	while (head_ != nullptr)
 		shift();
 }
-	
+
 TEMPLATE_T
-T & List<T>::operator[](int const num) 
+T & List<T>::operator[](int num)
 {
+	/*Перестановка индекса в конец*/
+	if (num < 0)
+		num += count_;
+
 	if (num >= count_ || num < 0)
 		throw LISTERR_NO_SUCH_ELEMENT;
-	auto ptr {NthElement_(num)};
+	auto ptr{NthElement_(num)};
 	assert(ptr != nullptr);
 	return ptr->data;
 }

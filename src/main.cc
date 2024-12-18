@@ -17,7 +17,7 @@ int main()
 	try {
 		List<int> l{ 4, nums };
 		while (l.size()) {
-			std::cout << l[0] << ' ';
+			std::cout << l[-1] << ' ';
 			l.shift();
 		}
 	} catch (ListErrors le) {
