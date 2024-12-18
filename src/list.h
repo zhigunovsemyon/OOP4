@@ -4,9 +4,7 @@
 
 #define TEMPLATE_T template <class T>
 
-TEMPLATE_T
-
-class List {
+TEMPLATE_T class List {
 public:
 	List() : count_{0}, head_{nullptr} {} // Пустой конструктор
 
