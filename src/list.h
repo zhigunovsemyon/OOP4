@@ -41,7 +41,7 @@ public:
 	T shift();
 
 	/*Извлечение последнего элемента*/
-	// T pop();
+	T pop();
 
 	/*Вставка элемента в конец*/
 	List & push(T const & el);
@@ -120,10 +120,23 @@ T & List<T>::operator[](int num)
 }
 
 /*Извлечение последнего элемента*/
-// TEMPLATE_T T List<T>::pop()
-// {
-//
-// }
+TEMPLATE_T T List<T>::pop()
+{
+	if (count_ == 1)
+		return std::move(shift());
+	
+	/*Указатель на предпоследний элемент,
+	 *в котором будет заменён next*/
+	auto ptr{NthElement_(count_ - 2)};
+	assert(ptr->next != nullptr);
+	assert(ptr->next->next == nullptr);
+
+	T ret = ptr->next->data;
+	delete ptr->next;
+	ptr->next = nullptr;
+	--count_;
+	return ret;
+}
 
 /*Вставка элемента в конец*/
 TEMPLATE_T List<T> & List<T>::push(T const & el)
