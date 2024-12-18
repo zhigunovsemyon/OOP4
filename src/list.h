@@ -18,6 +18,7 @@ public:
 	/*Число элементов в списке*/
 	std::size_t size() const { return count_; }
 
+	/*Вставка элемента в начало*/
 	List & unshift(T const & el)
 	{
 		head_ = new Element{el, head_};
@@ -25,6 +26,7 @@ public:
 		return *this;
 	}
 
+	/*Извлечение начального элемента*/
 	T shift();
 
 private:
@@ -36,7 +38,21 @@ private:
 		Element(T const & el, Element * newNext)
 			: data{el}, /*В data будет копия el*/
 			  next{newNext} {};
-	} * head_;
+	} * head_; /*Голова списка*/
+
+	/*Указатель на n-ый элемент списка, либо nullptr*/
+	Element * NthElement_(size_t const n)
+	{
+		/*Возвращаемый указатель. Изначально указывает на голову */
+		auto ret{head_};
+
+		for (size_t i{0}; i < n; ++i){
+			if (ret == nullptr)
+				return nullptr;
+			ret = ret->next;
+		}
+		return ret;
+	}
 };
 
 TEMPLATE_T
