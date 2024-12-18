@@ -1,6 +1,7 @@
 #include <cassert>
 #include <istream>
 #include <ostream>
+#include <utility>
 
 enum ListErrors {
 	LISTERR_NULLPTR_INSERTION,
@@ -39,6 +40,12 @@ public:
 	/*Извлечение начального элемента*/
 	T shift();
 
+	/*Извлечение последнего элемента*/
+	// T pop();
+
+	/*Вставка элемента в конец*/
+	List & push(T const & el);
+
 private:
 	int count_;
 
@@ -53,6 +60,7 @@ private:
 	/*Указатель на n-ый элемент списка, либо nullptr*/
 	Element * NthElement_(int const n)
 	{
+		assert(n >= 0); //До сюда не должен доходить индекс < 0
 		/*Возвращаемый указатель. Изначально указывает на голову */
 		auto ret{head_};
 
@@ -109,4 +117,25 @@ T & List<T>::operator[](int num)
 	auto ptr{NthElement_(num)};
 	assert(ptr != nullptr);
 	return ptr->data;
+}
+
+/*Извлечение последнего элемента*/
+// TEMPLATE_T T List<T>::pop()
+// {
+//
+// }
+
+/*Вставка элемента в конец*/
+TEMPLATE_T List<T> & List<T>::push(T const & el)
+{
+	if (head_ == nullptr)
+		return unshift(el);
+
+	/*Указатель на последний элемент*/
+	auto ptr{NthElement_(count_ - 1)};
+	assert(ptr->next == nullptr);
+
+	ptr->next = new Element{el, nullptr};
+	++count_;
+	return *this;
 }

@@ -15,10 +15,11 @@ int main()
 {
 	[[maybe_unused]] int nums[]{1, 4, 8, 8};
 	try {
-		List<int> l{ 4, nums };
+		List<int> l{ };
+		for (int i = 4; i > 0; --i)
+			l.push(nums[i - 1]);
 		while (l.size()) {
-			std::cout << l[-1] << ' ';
-			l.shift();
+			std::cout << l.shift() << ' ';
 		}
 	} catch (ListErrors le) {
 		switch (le) {
