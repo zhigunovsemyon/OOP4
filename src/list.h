@@ -125,6 +125,8 @@ T & List<T>::operator[](int num)
 /*Извлечение последнего элемента*/
 TEMPLATE_T T List<T>::pop()
 {
+	if (count_ == 0)
+		throw LISTERR_EMPTY_EXTRACTION;
 	if (count_ == 1)
 		return std::move(shift());
 
