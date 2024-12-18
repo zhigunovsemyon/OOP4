@@ -1,6 +1,11 @@
 #include <istream>
 #include <ostream>
 
+enum ListErrors {
+	LISTERR_NULLPTR_INSERTION,
+	LISTERR_EMPTY_EXTRACTION
+};
+
 #define TEMPLATE_T template <class T>
 
 TEMPLATE_T class List {
@@ -58,6 +63,9 @@ private:
 TEMPLATE_T
 T List<T>::shift()
 {
+	if (head_ == nullptr)
+		throw LISTERR_EMPTY_EXTRACTION;
+
 	Element * oldEl = head_; /*!ПОТЕНЦИАЛЬНОЕ РАЗИМЕНОВАНИЕ NULL!*/
 	/*Копирование данных из элемента списка на стек функции*/
 	T ret = oldEl->data;
@@ -70,6 +78,9 @@ T List<T>::shift()
 TEMPLATE_T
 List<T>::List(int num, T * const ptr) : count_{0}, head_{nullptr}
 {
+	if (ptr == nullptr)
+		throw LISTERR_NULLPTR_INSERTION;
+	
 	for (auto i{num - 1}; i >= 0; --i)
 		unshift(ptr[i]);
 }

@@ -13,10 +13,21 @@
 
 int main()
 {
-	int nums[]{1, 4, 8, 8};
-	List l{4, nums};
-	while (l.size())
-		std::cout << l.shift() << ' ';
+	[[maybe_unused]] int nums[]{1, 4, 8, 8};
+	try {
+		List<int> l{ 4, nums };
+		while (l.size())
+			std::cout << l.shift() << ' ';
+	} catch (ListErrors le) {
+		switch (le) {
+		case LISTERR_NULLPTR_INSERTION:
+			std::cerr << "Некорректный массив!\n";
+			return EXIT_FAILURE;
+		case LISTERR_EMPTY_EXTRACTION:
+			std::cerr << "Извлечение из пустого массива!\n";
+			return EXIT_FAILURE;
+		}
+	}
 	std::cout << std::endl;
 	return 0;
 }
