@@ -1,9 +1,11 @@
+#include <cassert>
 #include <istream>
 #include <ostream>
 
 enum ListErrors {
 	LISTERR_NULLPTR_INSERTION,
-	LISTERR_EMPTY_EXTRACTION
+	LISTERR_EMPTY_EXTRACTION,
+	LISTERR_NO_SUCH_ELEMENT,
 };
 
 #define TEMPLATE_T template <class T>
@@ -21,7 +23,7 @@ public:
 	void operator=(List & src) = delete;
 
 	/*Число элементов в списке*/
-	std::size_t size() const { return count_; }
+	int size() const { return count_; }
 
 	/*Вставка элемента в начало*/
 	List & unshift(T const & el)
@@ -31,11 +33,13 @@ public:
 		return *this;
 	}
 
+	T & operator[](int const num);
+
 	/*Извлечение начального элемента*/
 	T shift();
 
 private:
-	std::size_t count_;
+	int count_;
 
 	struct Element {
 		T data; /*Элемент, не указатель */
@@ -46,12 +50,12 @@ private:
 	} * head_; /*Голова списка*/
 
 	/*Указатель на n-ый элемент списка, либо nullptr*/
-	Element * NthElement_(size_t const n)
+	Element * NthElement_(int const n)
 	{
 		/*Возвращаемый указатель. Изначально указывает на голову */
 		auto ret{head_};
 
-		for (size_t i{0}; i < n; ++i){
+		for (int i{0}; i < n; ++i){
 			if (ret == nullptr)
 				return nullptr;
 			ret = ret->next;
@@ -90,4 +94,14 @@ List<T>::~List()
 {
 	while (head_ != nullptr)
 		shift();
+}
+	
+TEMPLATE_T
+T & List<T>::operator[](int const num) 
+{
+	if (num >= count_ || num < 0)
+		throw LISTERR_NO_SUCH_ELEMENT;
+	auto ptr {NthElement_(num)};
+	assert(ptr != nullptr);
+	return ptr->data;
 }

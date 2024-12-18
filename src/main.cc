@@ -16,8 +16,10 @@ int main()
 	[[maybe_unused]] int nums[]{1, 4, 8, 8};
 	try {
 		List<int> l{ 4, nums };
-		while (l.size())
-			std::cout << l.shift() << ' ';
+		while (l.size()) {
+			std::cout << l[0] << ' ';
+			l.shift();
+		}
 	} catch (ListErrors le) {
 		switch (le) {
 		case LISTERR_NULLPTR_INSERTION:
@@ -25,6 +27,9 @@ int main()
 			return EXIT_FAILURE;
 		case LISTERR_EMPTY_EXTRACTION:
 			std::cerr << "Извлечение из пустого массива!\n";
+			return EXIT_FAILURE;
+		case LISTERR_NO_SUCH_ELEMENT:
+			std::cerr << "Неправильно указан индекс!\n";
 			return EXIT_FAILURE;
 		}
 	}
