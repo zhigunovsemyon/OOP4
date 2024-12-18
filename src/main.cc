@@ -13,8 +13,10 @@
 
 int main()
 {
-	int nums[] {1,4,8,8};
+	int nums[]{1, 4, 8, 8};
 	List l{4, nums};
-	std::cout << ("Hello World!\n");
+	while (l.size())
+		std::cout << l.shift() << ' ';
+	std::cout << std::endl;
 	return 0;
 }
