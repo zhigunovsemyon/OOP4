@@ -64,6 +64,7 @@ private:
 	struct Element {
 		T data; /*Элемент, не указатель */
 		Element * next;
+		/*Конструктор*/
 		Element(T const & el, Element * newNext)
 			: data{el}, /*В data будет копия el*/
 			  next{newNext} {};
