@@ -15,9 +15,9 @@ int main()
 {
 	[[maybe_unused]] int nums[]{1, 4, 8, 8};
 	try {
-		List<int> l{1, nums};
-		for (int i = 1; i < 4; ++i) {
-			l.insertAfter(-1, nums[i]);
+		List<int> l{};
+		for (int i = 0; i < 4; ++i) {
+			l.push(nums[i]);
 		}
 		while (l.size()) {
 			std::cout << l.shift() << ' ';

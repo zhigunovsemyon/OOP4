@@ -47,10 +47,13 @@ public:
 	T pop();
 
 	/*Вставка элемента в конец*/
-	List & push(T const &);
+	List & push(T const &el)
+	{
+		return (head_ == nullptr) ? unshift(el) : insertAfter(-1, el);
+	}
 
 	/*Вставка после некотого элемента*/
-	List & insertAfter(int ,T const &);
+	List & insertAfter(int, T const &);
 
 private:
 	int count_;
@@ -146,22 +149,7 @@ TEMPLATE_T T List<T>::pop()
 	return ret;
 }
 
-/*Вставка элемента в конец*/
-TEMPLATE_T List<T> & List<T>::push(T const & el)
-{
-	if (head_ == nullptr)
-		return unshift(el);
-
-	/*Указатель на последний элемент*/
-	auto ptr{NthElement_(count_ - 1)};
-	assert(ptr->next == nullptr);
-
-	ptr->next = new Element{el, nullptr};
-	++count_;
-	return *this;
-}
-
-TEMPLATE_T List<T> & List<T>::insertAfter(int num, T const &el)
+TEMPLATE_T List<T> & List<T>::insertAfter(int num, T const & el)
 {
 	if (num < 0)
 		num += count_;
