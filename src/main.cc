@@ -15,14 +15,15 @@ int main()
 {
 	[[maybe_unused]] int nums[]{1, 4, 8, 8};
 	try {
-		List<int> l{ };
-		for (int i = 4; i > 0; --i){
-			// l.push(nums[i - 1]);
+		List<int> l{1, nums};
+		for (int i = 1; i < 4; ++i) {
+			l.insertAfter(-1, nums[i]);
 		}
-		// while (l.size()) {
+		while (l.size()) {
 			std::cout << l.shift() << ' ';
-			l.pop();
-		// }
+		}
+		std::cout << std::endl;
+		return 0;
 	} catch (ListErrors le) {
 		switch (le) {
 		case LISTERR_NULLPTR_INSERTION:
@@ -36,6 +37,4 @@ int main()
 			return EXIT_FAILURE;
 		}
 	}
-	std::cout << std::endl;
-	return 0;
 }

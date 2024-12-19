@@ -47,7 +47,10 @@ public:
 	T pop();
 
 	/*Вставка элемента в конец*/
-	List & push(T const & el);
+	List & push(T const &);
+
+	/*Вставка после некотого элемента*/
+	List & insertAfter(int ,T const &);
 
 private:
 	int count_;
@@ -154,6 +157,22 @@ TEMPLATE_T List<T> & List<T>::push(T const & el)
 	assert(ptr->next == nullptr);
 
 	ptr->next = new Element{el, nullptr};
+	++count_;
+	return *this;
+}
+
+TEMPLATE_T List<T> & List<T>::insertAfter(int num, T const &el)
+{
+	if (num < 0)
+		num += count_;
+	if (num >= count_ || num < 0)
+		throw LISTERR_NO_SUCH_ELEMENT;
+
+	/*Указатель на последний элемент*/
+	auto ptr{NthElement_(num)};
+	assert(ptr != nullptr);
+
+	ptr->next = new Element{el, ptr->next};
 	++count_;
 	return *this;
 }
