@@ -20,7 +20,7 @@ int main()
 			l.push(nums[i]);
 		}
 		while (l.size()) {
-			std::cout << l.shift() << ' ';
+			std::cout << l.pop() << ' ';
 		}
 		std::cout << std::endl;
 		return 0;

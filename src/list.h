@@ -44,16 +44,19 @@ public:
 	T shift();
 
 	/*Извлечение последнего элемента*/
-	T pop();
+	T pop() {return pull(-1);}
 
 	/*Вставка элемента в конец*/
 	List & push(T const &el)
 	{
-		return (head_ == nullptr) ? unshift(el) : insertAfter(-1, el);
+		return (head_ == nullptr) ? unshift(el) : insert(-1, el);
 	}
 
 	/*Вставка после некотого элемента*/
-	List & insertAfter(int, T const &);
+	List & insert(int, T const &);
+
+	/*Извлечение элемента под некоторым индексом*/
+	T pull(int);
 
 private:
 	int count_;
@@ -128,28 +131,32 @@ T & List<T>::operator[](int num)
 	return ptr->data;
 }
 
-/*Извлечение последнего элемента*/
-TEMPLATE_T T List<T>::pop()
+TEMPLATE_T T List<T>::pull(int num)
 {
 	if (count_ == 0)
 		throw LISTERR_EMPTY_EXTRACTION;
-	if (count_ == 1)
+
+	if (num < 0)
+		num += count_;
+	if (num >= count_ || num < 0)
+		throw LISTERR_NO_SUCH_ELEMENT;
+	if (num == 0)
 		return std::move(shift());
 
 	/*Указатель на предпоследний элемент,
 	 *в котором будет заменён next*/
 	auto ptr{NthElement_(count_ - 2)};
 	assert(ptr->next != nullptr);
-	assert(ptr->next->next == nullptr);
 
 	T ret = ptr->next->data;
+	ptr->next = ptr->next->next;
 	delete ptr->next;
-	ptr->next = nullptr;
 	--count_;
 	return ret;
 }
 
-TEMPLATE_T List<T> & List<T>::insertAfter(int num, T const & el)
+/*Метод вставки после некоторого индекса*/
+TEMPLATE_T List<T> & List<T>::insert(int num, T const & el)
 {
 	if (num < 0)
 		num += count_;
