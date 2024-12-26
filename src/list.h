@@ -68,20 +68,7 @@ public:
 	}
 
 	/*Наполнение списка из стандартного потока*/
-	List & read(std::istream & ist)
-	{
-		do {
-			T temp;	
-			ist >> temp;
-			if(ist.fail())
-				break;
-			/*else*/
-			push(temp);
-		} while(true);
-
-		/*Возврат ссылки на список для построения цепи*/
-		return *this;
-	}
+	List & read(std::istream & ist);
 
 private:
 	int count_;
@@ -210,5 +197,21 @@ List<T> & List<T>::print(std::ostream & ost)
 			break;
 		ost << '\n';
 	}
+	return *this;
+}
+
+TEMPLATE_T
+List<T> & List<T>::read(std::istream & ist)
+{
+	do {
+		T temp;
+		ist >> temp;
+		if (ist.fail())
+			break;
+		/*else*/
+		push(temp);
+	} while (true);
+
+	/*Возврат ссылки на список для построения цепи*/
 	return *this;
 }
