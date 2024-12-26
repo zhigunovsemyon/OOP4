@@ -8,16 +8,15 @@
  непосредственно объект.
  */
 #include "list.h"
+#include "matr.h"
 #include <iostream>
+#include <vector>
 
 int main()
 {
-	[[maybe_unused]] int nums[]{1, 4, 8, 8};
 	try {
-		List<int> l{};
-		for (int i = 0; i < 4; ++i) {
-			l.push(nums[i]);
-		}
+		std::vector<Matrix> ms {{2}, {3}};
+		List<Matrix> l{ (int)ms.size(), ms.data() };
 		std::cout << l << '\n';
 		std::cin >> l.erase();
 		std::cout << "l:\n"<< l << '\n';
