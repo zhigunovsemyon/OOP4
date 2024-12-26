@@ -44,10 +44,10 @@ public:
 	T shift();
 
 	/*Извлечение последнего элемента*/
-	T pop() {return pull(-1);}
+	T pop() { return pull(-1); }
 
 	/*Вставка элемента в конец*/
-	List & push(T const &el)
+	List & push(T const & el)
 	{
 		return (head_ == nullptr) ? unshift(el) : insert(-1, el);
 	}
@@ -57,6 +57,15 @@ public:
 
 	/*Извлечение элемента под некоторым индексом*/
 	T pull(int);
+
+	/*Вывод списка элементов в объект ostream*/
+	List & print(std::ostream &);
+
+	friend std::ostream & operator<<(std::ostream & ost, List & l)
+	{
+		l.print(ost);
+		return ost;
+	}
 
 private:
 	int count_;
@@ -170,5 +179,20 @@ TEMPLATE_T List<T> & List<T>::insert(int num, T const & el)
 
 	ptr->next = new Element{el, ptr->next};
 	++count_;
+	return *this;
+}
+
+TEMPLATE_T
+List<T> & List<T>::print(std::ostream & ost)
+{
+	int i{0};
+	/* Цикл с критерия окончания внутри. Если список пустой (count_ == 0),
+	цикл не начинается */
+	while (count_) {
+		ost << operator[](i++);
+		if (i >= count_)
+			break;
+		ost << '\n';
+	}
 	return *this;
 }
