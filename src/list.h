@@ -16,7 +16,7 @@ public:
 
 	List(int num, T * const ptr); // Конструктор из массива
 
-	~List(); // Деструктор
+	~List() { erase(); }; // Деструктор
 
 	/*Ненужные методы*/
 	List(List & src) = delete;
@@ -24,6 +24,9 @@ public:
 
 	/*Число элементов в списке*/
 	int size() const { return count_; }
+
+	/*Удаление всех элементов из списка*/
+	List & erase();
 
 	/*Вставка элемента в начало*/
 	List & unshift(T const & el)
@@ -70,7 +73,7 @@ public:
 	/*Наполнение списка из стандартного потока*/
 	List & read(std::istream & ist);
 
-	friend std::istream & operator>>(std::istream &ist, List & l)
+	friend std::istream & operator>>(std::istream & ist, List & l)
 	{
 		l.read(ist);
 		return ist;
@@ -130,10 +133,11 @@ List<T>::List(int num, T * const ptr) : count_{0}, head_{nullptr}
 }
 
 TEMPLATE_T
-List<T>::~List()
+List<T> & List<T>::erase()
 {
 	while (head_ != nullptr)
 		shift();
+	return *this;
 }
 
 TEMPLATE_T

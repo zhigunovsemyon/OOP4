@@ -18,8 +18,9 @@ int main()
 		for (int i = 0; i < 4; ++i) {
 			l.push(nums[i]);
 		}
-		std::cin >> l;
 		std::cout << l << '\n';
+		std::cin >> l.erase();
+		std::cout << "l:\n"<< l << '\n';
 		return 0;
 	} catch (ListErrors le) {
 		switch (le) {
