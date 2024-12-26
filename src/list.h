@@ -67,6 +67,22 @@ public:
 		return ost;
 	}
 
+	/*Наполнение списка из стандартного потока*/
+	List & read(std::istream & ist)
+	{
+		do {
+			T temp;	
+			ist >> temp;
+			if(ist.fail())
+				break;
+			/*else*/
+			push(temp);
+		} while(true);
+
+		/*Возврат ссылки на список для построения цепи*/
+		return *this;
+	}
+
 private:
 	int count_;
 

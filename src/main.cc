@@ -16,13 +16,9 @@ int main()
 	try {
 		List<int> l{};
 		for (int i = 0; i < 4; ++i) {
-			// l.push(nums[i]);
+			l.push(nums[i]);
 		}
-		// while (l.size()) {
-		// 	std::cout << l.pop() << ' ';
-		// }
-		// l.print(std::cout);
-		std::cout << l << '\n';
+		std::cout << (l.read(std::cin)) << '\n';
 		return 0;
 	} catch (ListErrors le) {
 		switch (le) {
