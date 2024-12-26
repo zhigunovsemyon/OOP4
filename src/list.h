@@ -70,6 +70,12 @@ public:
 	/*Наполнение списка из стандартного потока*/
 	List & read(std::istream & ist);
 
+	friend std::istream & operator>>(std::istream &ist, List & l)
+	{
+		l.read(ist);
+		return ist;
+	}
+
 private:
 	int count_;
 
