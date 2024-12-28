@@ -129,6 +129,9 @@ public:
 	friend inline std::ostream & operator<<(std::ostream & ost,
 						Matrix const & m)
 	{
+		if(m.line_count_ == 0|| 0 == m.row_count_ )
+			return ost;
+		ost << m.line_count_ << ' ' << m.row_count_ << '\n';
 		m.print(ost);
 		return ost;
 	}
@@ -141,15 +144,23 @@ public:
 
 	friend std::istream & operator>>(std::istream & ist, Matrix & m)
 	{
-		for (long i {0} ; i < m.line_count_; ++i) {
-			for (long j = {0}; j < m.row_count_; ++j) {
-				ist >> m[i][j];
-				if (ist.bad())
+		int w,h;
+		ist >> h >> w;
+		if (ist.fail())
+			return ist;
+		
+		Matrix tmp {h,w};
+		for (int i{0}; i < h; ++i) {
+			for (int j{0}; j < w; ++j) {
+				ist >> tmp[i][j];
+				if (ist.fail())
 					return ist;
 			}
 		}
-		if (m.row_count_ == 0 || m.line_count_ == 0)
-			ist.setstate(std::ios_base::failbit);
+
+		std::swap(tmp.ptr_, m.ptr_);
+		std::swap(tmp.line_count_, m.line_count_);
+		std::swap(tmp.row_count_, m.row_count_);
 		return ist;
 	}
 
